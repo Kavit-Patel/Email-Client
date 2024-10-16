@@ -54,7 +54,6 @@ export default function MasterSlaveLayout() {
     updateEmailStatus(email.id, { isRead: true });
     setSelectedEmail(email);
   };
-
   return (
     <main className="flex min-h-screen flex-col gap-4 border p-2 bg-[#f4f5f9]">
       {IsEmailListLoading && (
@@ -108,8 +107,11 @@ export default function MasterSlaveLayout() {
                   selectedEmail={selectedEmail}
                   setSelectedEmail={handleEmailClick}
                   data={
-                    filteredEmails
-                      ? { ...ListData, list: filteredEmails }
+                    filter && filteredEmails
+                      ? {
+                          ...ListData,
+                          list: filteredEmails,
+                        }
                       : emailsListDataInitial
                   }
                 />
@@ -139,9 +141,12 @@ export default function MasterSlaveLayout() {
         {pageNumbers?.map((pageNum) => (
           <button
             key={pageNum}
-            onClick={() => setPage(pageNum)}
+            onClick={() => {
+              setPage(pageNum);
+              setFilter(null);
+            }}
             className={`px-4 py-2 ${
-              pageNum === page
+              pageNum === page && !filter
                 ? "bg-gray-600 text-white"
                 : "bg-white text-black"
             }`}

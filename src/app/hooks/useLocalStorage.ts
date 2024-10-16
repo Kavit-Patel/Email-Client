@@ -53,14 +53,19 @@ export const useEmailStorage = (
   }, [fetchedEmailsData]);
 
   const getCurrentPageEmails = () => {
+    if (!emailsListData || emailsListData.list.length === 0)
+      return { list: [] };
+    const sortedEmails = [...emailsListData.list].sort(
+      (a, b) => Number(a.id) - Number(b.id)
+    );
     const startIndex = (page - 1) * emailsPerPage;
     const endIndex = startIndex + emailsPerPage;
+    const paginatedEmails = sortedEmails.slice(startIndex, endIndex);
     return {
       ...emailsListData,
-      list: emailsListData.list.slice(startIndex, endIndex),
+      list: paginatedEmails,
     };
   };
-
   const updateEmailStatus = (id: string, updates: Partial<EmailItem>) => {
     setEmailsListData((prevEmails) => {
       const updatedList = prevEmails.list.map((email) =>
