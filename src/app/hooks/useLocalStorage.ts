@@ -1,4 +1,5 @@
 "use client";
+
 import { useState, useEffect } from "react";
 import { EmailItem, EmailListResponse } from "@/types/types";
 
@@ -9,15 +10,18 @@ export const useEmailStorage = (
 ) => {
   const [emailsListData, setEmailsListData] = useState<EmailListResponse>(
     () => {
-      const storedEmailsData = localStorage.getItem("emailsData");
-      return storedEmailsData
-        ? JSON.parse(storedEmailsData)
-        : { list: [], ...fetchedEmailsData };
+      if (typeof window !== "undefined") {
+        const storedEmailsData = localStorage.getItem("emailsData");
+        return storedEmailsData
+          ? JSON.parse(storedEmailsData)
+          : { list: [], ...fetchedEmailsData };
+      }
+      return { list: [], ...fetchedEmailsData };
     }
   );
 
   useEffect(() => {
-    if (fetchedEmailsData) {
+    if (fetchedEmailsData && typeof window !== "undefined") {
       const storedEmailsData = localStorage.getItem("emailsData");
       const existingEmailsData: EmailListResponse = storedEmailsData
         ? JSON.parse(storedEmailsData)
@@ -64,7 +68,9 @@ export const useEmailStorage = (
       );
 
       const updatedEmailsData = { ...prevEmails, list: updatedList };
-      localStorage.setItem("emailsData", JSON.stringify(updatedEmailsData));
+      if (typeof window !== "undefined") {
+        localStorage.setItem("emailsData", JSON.stringify(updatedEmailsData));
+      }
 
       return updatedEmailsData;
     });

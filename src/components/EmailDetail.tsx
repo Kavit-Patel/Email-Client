@@ -1,3 +1,4 @@
+"use client";
 import { useEmailDetail } from "@/app/hooks/useEmailQueries";
 import { EmailItem } from "@/types/types";
 import parse from "html-react-parser";
