@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Email Client Application
 
-## Getting Started
+A feature-rich email client built using **Next.js**, designed to replicate the core functionalities of an application like Outlook. It provides an intuitive user experience for reading, managing, and filtering emails.
 
-First, run the development server:
+The application is live and can be accessed here: [**Email Client Azure**](https://email-client-azure.vercel.app/).
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Core Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Email List View**
 
-## Learn More
+  - Displays a list of emails fetched from the API.
+    https://flipkart-email-mock.vercel.app
+  - Differentiates between **read** and **unread** emails using distinct styles.
 
-To learn more about Next.js, take a look at the following resources:
+- **Email Detail View**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+  - Clicking on an email opens its details in a master-detail layout:
+    - **Master View (Left):** Displays the email list.
+    - **Detail View (Right):** Shows the selected email:
+  - Email body is fetched dynamically upon selection.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Mark as Favorite**
 
-## Deploy on Vercel
+  - Emails can be marked/unmarked as favorite from the detail view.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Filtering**
+  - Filter emails by:
+    - Favorites.
+    - Read.
+    - Unread.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Additional Enhancements
+
+- **Pagination**
+  - Handles long email lists by fetching data page by page.
+- **Persistent Storage**
+  - Favorites and read statuses persist since stored in localstorage.
+
+---
+
+## APIs Used
+
+### 1. Email List API
+
+Fetches a paginated list of emails.
+
+- **Endpoint:** `https://flipkart-email-mock.now.sh/`
+- **Paginated:** `https://flipkart-email-mock.now.sh/?page=<pageNumber>`
+
+### 2. Email Body API
+
+Fetches the content of a specific email.
+
+- **Endpoint:** `https://flipkart-email-mock.now.sh/?id=<email-item-id>`
+
+---
+
+## Tech Stack
+
+- **Framework:** [Next.js](https://nextjs.org/)
+- **Styling:** Tailwindcss
+- **Deployment:** [Vercel](https://email-client-azure.vercel.app/)
+
+---
+
+## Installation and Setup
+
+### Prerequisites
+
+- Node.js (v14 or later)
+- npm or yarn
+
+### Steps to Run Locally
+
+1. **Clone the repository**
+   git clone [<repository_url>](https://github.com/Kavit-Patel/Email-Client.git)
+   cd email-client
+2. **env**
+   NEXT_PUBLIC_EMAIL_LIST = https://flipkart-email-mock.vercel.app
+3. **run**
+   npm run dev
